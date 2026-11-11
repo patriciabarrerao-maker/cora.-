@@ -160,7 +160,7 @@
     <section class="tarjeta" id="resultado" aria-live="polite">
       <div class="cabecera-res">
         <div>
-          <div class="etiqueta">Tu sueño resuena con</div>
+          <div class="etiqueta">Tu sueño habla de</div>
           <div class="sefira-nombre" id="r-nombre"></div>
           <div class="hebreo" id="r-hebreo"></div>
           <div class="clave" id="r-clave"></div>
@@ -168,7 +168,7 @@
         <svg class="arbol" id="arbol" viewBox="0 0 200 380" role="img" aria-label="Árbol de la Vida"></svg>
       </div>
 
-      <h2>Lectura</h2>
+      <h2>Qué significa</h2>
       <p class="texto" id="r-lectura"></p>
 
       <div id="r-simbolos-bloque">
@@ -176,7 +176,7 @@
         <ul class="simbolos" id="r-simbolos"></ul>
       </div>
 
-      <h2>Para tu despertar</h2>
+      <h2>Un consejo para hoy</h2>
       <div class="consejo" id="r-consejo"></div>
 
       <p class="cita" id="r-cita"></p>
@@ -201,36 +201,36 @@
 <script>
 /* ───────────── Las diez Sefirot ───────────── */
 const SEFIROT = {
-  keter:   { nombre: "Kéter",   hebreo: "כתר",   clave: "La Corona · voluntad y lo oculto", x: 100, y: 24,
-    lectura: "Kéter es la raíz más alta del Árbol, la voluntad pura anterior a cualquier pensamiento. Un sueño que toca Kéter habla de un deseo profundo de tu alma que todavía no tiene palabras: algo en ti quiere elevarse, cambiar de nivel o empezar de cero.",
-    consejo: "Antes de levantarte, pregúntate: «¿Qué quiero de verdad, por debajo de todo lo demás?». Escribe la primera respuesta que llegue, aunque te sorprenda." },
-  jojma:   { nombre: "Jojmá",   hebreo: "חכמה",  clave: "Sabiduría · la chispa de la intuición", x: 168, y: 72,
-    lectura: "Jojmá es el primer destello, la idea que aparece de golpe. Tu sueño trae una intuición nueva, una semilla de comprensión que llega antes de que puedas explicarla. Presta atención a las imágenes que te dejaron una sensación de «ajá».",
-    consejo: "Ten a mano una libreta: las intuiciones de Jojmá se desvanecen rápido. Anota las imágenes más luminosas del sueño sin intentar ordenarlas todavía." },
-  bina:    { nombre: "Biná",    hebreo: "בינה",  clave: "Entendimiento · la madre que gesta", x: 32, y: 72,
-    lectura: "Biná es el seno donde la chispa de Jojmá se desarrolla y toma forma; la tradición habla de las «cincuenta puertas del entendimiento». Tu sueño muestra algo que se está gestando en ti —un proyecto, una emoción, una nueva etapa— y que necesita tiempo y cuidado.",
-    consejo: "No fuerces respuestas hoy. Biná también es el lugar del retorno (teshuvá): dedica unos minutos a mirar con ternura de dónde vienes y hacia dónde vas." },
-  jesed:   { nombre: "Jésed",   hebreo: "חסד",   clave: "Bondad · amor que se expande como el agua", x: 168, y: 150,
-    lectura: "Jésed es el amor generoso, la abundancia que fluye sin medida, asociada al agua y a Abraham. Tu sueño refleja un momento de apertura: hay bendición disponible para ti y también ganas de darla a los demás.",
-    consejo: "Haz hoy un acto de bondad pequeño y concreto (la tradición lo llama tzedaká). Dar ancla la abundancia que el sueño te ha mostrado." },
-  guevura: { nombre: "Guevurá", hebreo: "גבורה", clave: "Fuerza · límites, rigor y purificación", x: 32, y: 150,
-    lectura: "Guevurá es el fuego que pone límites y purifica, asociada a Isaac. Los sueños intensos o inquietantes suelen pasar por aquí: señalan algo que pide orden, un «no» que necesitas decir o un miedo que se puede transformar en fuerza.",
-    consejo: "Elige un solo límite sano que quieras poner esta semana. Recuerda que en la Cábala el rigor existe para que el amor tenga forma, no para castigar." },
-  tiferet: { nombre: "Tiféret", hebreo: "תפארת", clave: "Belleza · armonía y verdad del corazón", x: 100, y: 196,
-    lectura: "Tiféret está en el corazón del Árbol y equilibra la bondad y el rigor; se asocia a Jacob y a la verdad. Tu sueño busca armonía: quizá estás integrando dos partes de ti, o tu corazón te pide vivir de forma más auténtica.",
-    consejo: "Busca hoy un momento de belleza consciente: música, naturaleza, una conversación sincera. Tiféret crece cuando lo que sientes y lo que haces coinciden." },
-  netzaj:  { nombre: "Nétsaj",  hebreo: "נצח",   clave: "Victoria · perseverancia y movimiento", x: 168, y: 262,
-    lectura: "Nétsaj es la energía que avanza y no se rinde, asociada a Moisés. Los caminos, viajes y subidas del sueño hablan de tu deseo de llegar a algún sitio. El mensaje: tu esfuerzo tiene sentido, sigue adelante.",
-    consejo: "Da hoy un paso, aunque sea mínimo, hacia aquello que vienes posponiendo. Nétsaj se alimenta de constancia, no de grandes gestos." },
-  hod:     { nombre: "Hod",     hebreo: "הוד",   clave: "Esplendor · humildad y gratitud", x: 32, y: 262,
-    lectura: "Hod es la capacidad de reconocer, agradecer y soltar el control, asociada a Aarón. Los sueños de exámenes, vulnerabilidad o pérdidas pequeñas suelen tocar Hod: te invitan a aceptar lo que no depende de ti con humildad.",
-    consejo: "Antes de dormir, escribe tres cosas por las que des las gracias. La palabra hebrea «hodaá» (gratitud) comparte raíz con Hod." },
-  yesod:   { nombre: "Yesod",   hebreo: "יסוד",  clave: "Fundamento · conexión, vínculo y sueños", x: 100, y: 300,
-    lectura: "Yesod es el canal que une el mundo interior con el exterior, y se asocia a José, el gran intérprete de sueños de la Torá. Tu sueño habla de vínculos, de intimidad y de lo que deseas unir en tu vida: una relación, un compromiso, un puente entre lo que sueñas y lo que vives.",
-    consejo: "Piensa en una relación que quieras cuidar y da un gesto de conexión hoy: un mensaje, una llamada, un abrazo." },
-  maljut:  { nombre: "Maljut",  hebreo: "מלכות", clave: "Reino · la tierra, el hogar y la Shejiná", x: 100, y: 356,
-    lectura: "Maljut es la última sefirá, donde toda la luz llega al mundo concreto; se asocia a la luna, al rey David y a la Shejiná, la presencia divina. Tu sueño habla de tu vida cotidiana —casa, cuerpo, rutina— y de cómo hacer de ella un lugar sagrado.",
-    consejo: "Ordena o embellece hoy un pequeño rincón de tu casa. En la Cábala, cuidar lo material es una forma de recibir la luz de arriba." },
+  keter:   { nombre: "Kéter",   hebreo: "כתר",   tema: "Lo que deseas de verdad", corto: "Deseo profundo", x: 100, y: 24,
+    lectura: "Este sueño habla de un deseo muy profundo, algo que quieres de verdad aunque quizá todavía no sepas ponerle nombre. Puede ser ganas de cambiar, de empezar de cero o de dar un paso grande en tu vida.",
+    consejo: "Al despertar, pregúntate con calma: «¿Qué es lo que más quiero ahora mismo?». Apunta lo primero que se te venga a la cabeza, aunque te sorprenda." },
+  jojma:   { nombre: "Jojmá",   hebreo: "חכמה",  tema: "Una idea nueva", corto: "Idea nueva", x: 168, y: 72,
+    lectura: "Este sueño trae una idea o una intuición nueva. Es como cuando algo se te «enciende» por dentro: todavía no sabes explicarlo bien, pero sientes que ahí hay algo importante.",
+    consejo: "Ten una libreta cerca de la cama. Escribe las imágenes del sueño que más te llamaron la atención antes de que se te olviden." },
+  bina:    { nombre: "Biná",    hebreo: "בינה",  tema: "Algo que está creciendo en ti", corto: "Algo que crece", x: 32, y: 72,
+    lectura: "Este sueño habla de algo que se está formando dentro de ti: un proyecto, un sentimiento o una nueva etapa. Como una semilla bajo tierra, necesita tiempo y paciencia antes de verse.",
+    consejo: "No te agobies si aún no tienes respuestas. Date tiempo y trátate con cariño: lo que está creciendo saldrá cuando esté listo." },
+  jesed:   { nombre: "Jésed",   hebreo: "חסד",   tema: "Amor y generosidad", corto: "Amor", x: 168, y: 150,
+    lectura: "Este sueño habla de amor, cariño y abundancia. Estás en un momento abierto: puedes recibir cosas buenas y también tienes ganas de darlas a los demás.",
+    consejo: "Haz hoy algo bonito por otra persona, aunque sea pequeño: un mensaje cariñoso, ayudar a alguien, un detalle. Dar te ayuda a recibir." },
+  guevura: { nombre: "Guevurá", hebreo: "גבורה", tema: "Fuerza y límites", corto: "Fuerza", x: 32, y: 150,
+    lectura: "Este sueño habla de fuerza y de poner límites. Los sueños intensos o que dan miedo suelen tratar de esto: algo en tu vida te pide orden, decir «no» a alguien o enfrentarte a un miedo.",
+    consejo: "Piensa en una sola cosa a la que te gustaría decir «basta» esta semana. Poner límites no es ser mala persona: es cuidarte." },
+  tiferet: { nombre: "Tiféret", hebreo: "תפארת", tema: "Equilibrio y ser tú misma", corto: "Equilibrio", x: 100, y: 196,
+    lectura: "Este sueño busca equilibrio. Quizá sientes que tienes dos partes de ti tirando en direcciones distintas, o tu corazón te pide vivir de forma más sincera contigo misma.",
+    consejo: "Regálate hoy un rato que te haga sentir bien de verdad: música, un paseo, una charla sincera. Fíjate en si lo que haces encaja con lo que sientes." },
+  netzaj:  { nombre: "Nétsaj",  hebreo: "נצח",   tema: "Seguir adelante", corto: "Avanzar", x: 168, y: 262,
+    lectura: "Este sueño habla de avanzar y no rendirse. Los caminos, viajes y subidas de tu sueño muestran que quieres llegar a algún sitio. El mensaje es claro: tu esfuerzo merece la pena, sigue.",
+    consejo: "Da hoy un pequeño paso hacia eso que llevas tiempo dejando para más tarde. No hace falta que sea grande, lo importante es avanzar." },
+  hod:     { nombre: "Hod",     hebreo: "הוד",   tema: "Soltar y agradecer", corto: "Soltar", x: 32, y: 262,
+    lectura: "Este sueño habla de aceptar lo que no puedes controlar. Los sueños de exámenes, de sentirse expuesta o de perder cosas suelen ir de esto: te piden relajarte, soltar un poco y agradecer lo que sí tienes.",
+    consejo: "Esta noche, antes de dormir, escribe tres cosas por las que estés agradecida hoy. Parece poco, pero ayuda mucho a soltar la presión." },
+  yesod:   { nombre: "Yesod",   hebreo: "יסוד",  tema: "Tus relaciones y vínculos", corto: "Vínculos", x: 100, y: 300,
+    lectura: "Este sueño habla de tus relaciones: pareja, familia, amistades. Hay algo o alguien con quien quieres conectar más, o un paso que deseas dar para unir lo que sueñas con lo que vives.",
+    consejo: "Piensa en una persona que te importe y acércate a ella hoy: escríbele, llámala o dale un abrazo." },
+  maljut:  { nombre: "Maljut",  hebreo: "מלכות", tema: "Tu día a día y tu hogar", corto: "Día a día", x: 100, y: 356,
+    lectura: "Este sueño habla de tu vida diaria: tu casa, tu cuerpo, tu rutina. Te recuerda que lo cotidiano también importa y que cuidar lo pequeño te da paz.",
+    consejo: "Ordena o pon bonito un rincón de tu casa hoy. Cuidar tu espacio es una forma de cuidarte a ti." },
 };
 
 const SENDEROS = [["keter","jojma"],["keter","bina"],["keter","tiferet"],["jojma","bina"],["jojma","jesed"],["jojma","tiferet"],["bina","guevura"],["bina","tiferet"],["jesed","guevura"],["jesed","tiferet"],["jesed","netzaj"],["guevura","tiferet"],["guevura","hod"],["tiferet","netzaj"],["tiferet","yesod"],["tiferet","hod"],["netzaj","hod"],["netzaj","yesod"],["netzaj","maljut"],["hod","yesod"],["hod","maljut"],["yesod","maljut"]];
@@ -238,91 +238,91 @@ const SENDEROS = [["keter","jojma"],["keter","bina"],["keter","tiferet"],["jojma
 /* ───────────── Diccionario de símbolos ─────────────
    Cada palabra se compara sin tildes. Un "*" al final = cualquier terminación. */
 const SIMBOLOS = [
-  { n: "Agua", s: "jesed", p: ["agua*","rio","rios","lago*","fuente*","cascada*"], t: "El agua es la imagen clásica de Jésed: el amor y la bendición que descienden y lo nutren todo." },
-  { n: "Mar", s: "bina", p: ["mar","mares","oceano*","olas","ola","playa*"], t: "El mar es inmensidad y profundidad, como Biná: el gran útero donde se gestan las formas." },
-  { n: "Lluvia", s: "jesed", p: ["lluvia*","llovia","llover","lloviendo","llueve"], t: "En el Talmud la lluvia es una de las «tres llaves» que guarda solo Dios: bendición que llega a su tiempo." },
-  { n: "Nadar", s: "jesed", p: ["nad*"], t: "Moverse dentro del agua: aprender a dejarse llevar por el amor sin perder el rumbo." },
-  { n: "Fuego", s: "guevura", p: ["fuego*","llamas","incendi*","quem*","hoguera*"], t: "El fuego pertenece a Guevurá: consume lo que sobra y purifica lo que queda." },
-  { n: "Luz", s: "jojma", p: ["luz","luces","brill*","resplandor*","luminos*"], t: "La luz (Or) es el lenguaje de la Cábala para lo divino: una comprensión nueva te ilumina." },
-  { n: "Sol", s: "tiferet", p: ["sol","soleado","amanecer*","amanecia"], t: "El sol se asocia a Tiféret, el centro que irradia armonía hacia todo el Árbol." },
-  { n: "Luna", s: "maljut", p: ["luna*"], t: "La luna no tiene luz propia: recibe y refleja, como Maljut. Habla de receptividad y de ciclos." },
-  { n: "Estrellas", s: "jojma", p: ["estrella*","constelacion*"], t: "Chispas de luz en la oscuridad: pequeñas intuiciones que guían, como la promesa de estrellas a Abraham." },
-  { n: "Noche", s: "maljut", p: ["noche*","oscur*","tinieblas"], t: "La noche es el tiempo de Maljut, la luna; la oscuridad prepara la luz que viene." },
-  { n: "Volar", s: "keter", p: ["vol*","vuel*","flot*","levit*"], t: "Volar es la elevación del alma, el deseo de subir de nivel hacia tu raíz." },
-  { n: "Caer", s: "maljut", p: ["cai*","caer","cayendo","cayo","cayeron","caida*"], t: "La Cábala habla de «descender para ascender» (yeridá le-tsorej aliyá): toda caída prepara una subida." },
-  { n: "Escalera", s: "tiferet", p: ["escalera*","escalon*","peldan*"], t: "Evoca la escalera de Jacob, que unía cielo y tierra; Jacob es la figura de Tiféret." },
-  { n: "Ángel", s: "yesod", p: ["angel*"], t: "Los ángeles son mensajeros, canales entre mundos, igual que Yesod une lo alto con lo bajo." },
-  { n: "Puerta", s: "bina", p: ["puerta*","portal*","entrada*"], t: "La tradición habla de las «cincuenta puertas de Biná»: se abre una comprensión nueva." },
-  { n: "Llave", s: "bina", p: ["llave","llaves"], t: "Según el Talmud, hay llaves del nacimiento, la lluvia y la vida que nadie más guarda: algo esencial se abre." },
-  { n: "Casa", s: "maljut", p: ["casa","casas","hogar*","habitacion*","cuarto"], t: "La casa es tu mundo concreto, tu Maljut: el espacio donde vives lo que eres." },
-  { n: "Jardín", s: "maljut", p: ["jardin*","huerto*","bosque*","campo","prado*"], t: "El jardín evoca el Edén y el «campo de manzanos sagrados», símbolo de la Shejiná." },
-  { n: "Flores", s: "maljut", p: ["flor","flores","rosa","rosas"], t: "El Zóhar comienza hablando de una rosa entre espinas: la presencia divina en el mundo." },
-  { n: "Árbol", s: "tiferet", p: ["arbol*","raices","raiz","ramas"], t: "El propio Árbol de la Vida: crecimiento que une raíces y cielo." },
-  { n: "Fruta", s: "maljut", p: ["fruta*","fruto*","manzana*","granada*","uvas"], t: "El fruto es la luz hecha materia: algo de tu esfuerzo empieza a dar resultado." },
-  { n: "Pan", s: "jesed", p: ["pan","comida","comer","comia","comiendo"], t: "El alimento es sustento y generosidad: estás recibiendo o necesitando nutrición." },
-  { n: "Vino", s: "bina", p: ["vino"], t: "En hebreo, «vino» (yayin) y «secreto» (sod) suman lo mismo, 70: algo oculto quiere revelarse." },
-  { n: "Oro", s: "guevura", p: ["oro","dorad*","joya*","tesoro*"], t: "En la Cábala el oro corresponde a Guevurá: un valor que se forja con fuerza y fuego." },
-  { n: "Plata y dinero", s: "jesed", p: ["plata","dinero","monedas","billetes"], t: "La plata se vincula a Jésed: abundancia que fluye y que pide ser compartida." },
-  { n: "Bebé", s: "bina", p: ["bebe*","embaraz*","parto","nacimiento","naci*"], t: "Un bebé es algo nuevo que se gesta: el territorio de Biná, la madre del Árbol." },
-  { n: "Madre", s: "bina", p: ["madre","mama","mami"], t: "Biná es llamada «la Madre superior»: amparo, contención y comprensión." },
-  { n: "Padre", s: "jojma", p: ["padre","papa","papi"], t: "Jojmá es «el Padre superior»: la semilla de sabiduría que inicia la vida." },
-  { n: "Niños", s: "netzaj", p: ["nino","nina","ninos","ninas","infancia"], t: "Los niños son continuidad y futuro: energía que sigue adelante." },
-  { n: "Boda", s: "yesod", p: ["boda*","casar*","casab*","novi*","anillo*"], t: "La unión es el misterio de Yesod, que une a Tiféret con Maljut, el novio con la novia." },
-  { n: "Beso y amor", s: "tiferet", p: ["bes*","amor","enamor*","pareja"], t: "El Zóhar describe el beso como la unión de dos alientos, dos espíritus que se encuentran." },
-  { n: "Muerte", s: "bina", p: ["muert*","muri*","morir","morian","funeral*","entierro"], t: "Soñar con la muerte rara vez es literal: marca el final de una etapa y un retorno a la raíz." },
-  { n: "Abuelos y ancestros", s: "hod", p: ["abuel*","antepasad*","ancestr*","difunt*"], t: "Quienes nos precedieron traen memoria y bendición; honrarlos es un gesto de Hod." },
-  { n: "Montaña", s: "netzaj", p: ["montan*","monte","cima","subi*","escalar","escalaba","escalando"], t: "Subir una montaña evoca el Sinaí y el Moriá: esfuerzo constante hacia lo alto." },
-  { n: "Camino y viaje", s: "netzaj", p: ["camino*","camin*","viaj*","sender*","carretera*"], t: "El camino es avance y perseverancia, la energía de Nétsaj." },
-  { n: "Vehículos", s: "netzaj", p: ["coche*","tren*","avion*","barco*","autobus*","conduc*"], t: "Un vehículo indica cómo te mueves por la vida y quién lleva el control." },
-  { n: "Perseguir", s: "guevura", p: ["persegu*","persigu*","huia","huir","huyendo","escap*"], t: "Ser perseguida señala un miedo o un juicio que pide ser mirado de frente." },
-  { n: "Tormenta", s: "guevura", p: ["tormenta*","trueno*","rayo","rayos","tempestad*","viento*"], t: "La tormenta es el rigor en movimiento: algo se sacude para quedar limpio." },
-  { n: "Arcoíris", s: "yesod", p: ["arcoiris","arco iris"], t: "En el Zóhar el arcoíris es imagen de Yesod: la alianza y el puente entre cielo y tierra." },
-  { n: "Serpiente", s: "guevura", p: ["serpiente*","culebra*","vibora*"], t: "«Serpiente» (najash) suma 358, igual que «Mesías»: una amenaza que puede volverse redención." },
-  { n: "Peces", s: "yesod", p: ["pez","peces","pescado*"], t: "Los peces, siempre con los ojos abiertos, simbolizan protección; la tradición asocia a José con ellos." },
-  { n: "Aves", s: "jesed", p: ["pajar*","ave","aves","paloma*","pajaritos"], t: "La paloma de Noé trajo la rama de olivo: un mensaje de paz y de nueva tierra." },
-  { n: "León", s: "jesed", p: ["leon","leones","leona*"], t: "En la carroza de Ezequiel el león está a la derecha, el lado de Jésed: valentía generosa." },
-  { n: "Toro", s: "guevura", p: ["toro*","buey*","vaca*"], t: "El buey está a la izquierda de la carroza celestial, el lado de Guevurá: fuerza que hay que dirigir." },
-  { n: "Águila", s: "tiferet", p: ["aguila*"], t: "El águila de la visión de Ezequiel equilibra derecha e izquierda, como Tiféret." },
-  { n: "Caballo", s: "netzaj", p: ["caballo*","yegua*"], t: "El caballo es impulso y avance: energía vital que te lleva lejos." },
-  { n: "Perro", s: "guevura", p: ["perro*","perrit*"], t: "El perro guarda y vigila: lealtad y límites." },
-  { n: "Gato", s: "hod", p: ["gato*","gatit*"], t: "El gato observa en silencio: intuición, independencia y saber esperar." },
-  { n: "Mariposa", s: "bina", p: ["mariposa*","oruga*"], t: "La transformación lenta del capullo es pura Biná: lo que se gesta en secreto." },
-  { n: "Libro y letras", s: "jojma", p: ["libro*","letra*","escrib*","leer","leia","palabras"], t: "Para la Cábala el mundo fue creado con letras: un mensaje quiere ser leído." },
-  { n: "Templo", s: "maljut", p: ["templo*","sinagoga*","iglesia*","altar*"], t: "Un lugar sagrado en sueños es la Shejiná buscando morada en tu vida." },
-  { n: "Velas", s: "tiferet", p: ["vela","velas"], t: "«El alma humana es la vela de Dios» (Proverbios 20:27): tu luz interior pide cuidado." },
-  { n: "Corona", s: "keter", p: ["corona*"], t: "Kéter significa literalmente «corona»: la voluntad más alta sobre tu cabeza." },
-  { n: "Rey o reina", s: "maljut", p: ["rey","reyes","reina*","princes*","principe*"], t: "Maljut significa «reino»: es hora de ocupar tu lugar con dignidad." },
-  { n: "Cabello", s: "keter", p: ["pelo","cabello*","melena"], t: "El Zóhar describe los cabellos como canales finísimos por los que baja la luz de Kéter." },
-  { n: "Dientes", s: "hod", p: ["diente*","muela*"], t: "Perder dientes habla de miedo a perder control o imagen: una invitación a la humildad y la aceptación." },
-  { n: "Desnudez", s: "hod", p: ["desnud*"], t: "Sentirse expuesta es vulnerabilidad: Hod nos enseña que en ella también hay belleza." },
-  { n: "Ropa", s: "hod", p: ["ropa","vestido*","vestia","zapato*"], t: "La Cábala habla de las «vestiduras» del alma: pensamiento, palabra y acción." },
-  { n: "Examen", s: "hod", p: ["examen*","prueba*","clase","colegio","escuela","universidad"], t: "Los exámenes en sueños reflejan sentirte evaluada; Hod te recuerda que no todo depende de ti." },
-  { n: "Perderse", s: "tiferet", p: ["perdid*","perdi","perderme","desorient*"], t: "Perderse es buscar el centro; Tiféret es el corazón que vuelve a orientarte." },
-  { n: "Llorar", s: "bina", p: ["llor*","lagrima*"], t: "El Talmud dice que «las puertas de las lágrimas nunca se cierran»: tu emoción es escuchada." },
-  { n: "Reír", s: "jesed", p: ["rei*","risa*","feliz","alegr*"], t: "La risa abre el corazón: alegría que se expande como Jésed." },
-  { n: "Espejo", s: "tiferet", p: ["espejo*","reflejo*"], t: "La tradición dice que Moisés veía a través de un «espejo luminoso»: momento de verte con claridad." },
-  { n: "Pozo", s: "bina", p: ["pozo*","cueva*","tunel*"], t: "Un espacio profundo y oculto: comprensión que se encuentra bajando hacia dentro." },
-  { n: "Blanco", s: "jesed", p: ["blanc*","nieve"], t: "El blanco es el color de Jésed: pureza y bondad." },
-  { n: "Rojo", s: "guevura", p: ["rojo*","roja*","sangre"], t: "El rojo es el color de Guevurá: intensidad, pasión y fuerza." },
-  { n: "Azul", s: "maljut", p: ["azul*"], t: "El azul (tejélet) recuerda al mar, que recuerda al cielo, que recuerda al Trono: lo divino en lo cotidiano." },
-  { n: "Verde", s: "tiferet", p: ["verde*"], t: "El verde, color del equilibrio vital, se asocia a menudo a Tiféret." },
+  { n: "Agua", s: "jesed", p: ["agua*","rio","rios","lago*","fuente*","cascada*"], t: "El agua suele representar tus emociones y el cariño que te llega. Si estaba limpia y tranquila, es buena señal." },
+  { n: "Mar", s: "bina", p: ["mar","mares","oceano*","olas","ola","playa*"], t: "El mar es algo muy grande y profundo: habla de emociones intensas o de algo importante que se está formando en ti." },
+  { n: "Lluvia", s: "jesed", p: ["lluvia*","llovia","llover","lloviendo","llueve"], t: "La lluvia es algo bueno que llega a su tiempo, como cuando el campo por fin recibe agua." },
+  { n: "Nadar", s: "jesed", p: ["nad*"], t: "Nadar es aprender a dejarte llevar por lo que sientes sin perder el rumbo." },
+  { n: "Fuego", s: "guevura", p: ["fuego*","llamas","incendi*","quem*","hoguera*"], t: "El fuego quema lo que sobra. Puede hablar de enfado, de pasión o de una etapa que se cierra para dejar sitio a algo nuevo." },
+  { n: "Luz", s: "jojma", p: ["luz","luces","brill*","resplandor*","luminos*"], t: "La luz es comprender algo que antes no veías. Algo se te está aclarando." },
+  { n: "Sol", s: "tiferet", p: ["sol","soleado","amanecer*","amanecia"], t: "El sol habla de alegría, de calor y de sentirte bien contigo misma." },
+  { n: "Luna", s: "maljut", p: ["luna*"], t: "La luna cambia y vuelve a empezar: habla de tus ciclos y de lo que recibes de los demás." },
+  { n: "Estrellas", s: "jojma", p: ["estrella*","constelacion*"], t: "Las estrellas son pequeñas luces que guían en la oscuridad: ideas o esperanzas que te orientan." },
+  { n: "Noche", s: "maljut", p: ["noche*","oscur*","tinieblas"], t: "La noche es un momento de pausa y de no ver del todo claro. Después siempre amanece." },
+  { n: "Volar", s: "keter", p: ["vol*","vuel*","flot*","levit*"], t: "Volar es sentirte libre y con ganas de llegar más alto en tu vida." },
+  { n: "Caer", s: "maljut", p: ["cai*","caer","cayendo","cayo","cayeron","caida*"], t: "Caer da miedo, pero la Cábala dice que a veces bajamos para luego subir más alto. Puede ser un momento de inseguridad que te hará más fuerte." },
+  { n: "Escalera", s: "tiferet", p: ["escalera*","escalon*","peldan*"], t: "Una escalera es ir subiendo poco a poco, paso a paso. Recuerda a la escalera que soñó Jacob en la Biblia, que llegaba hasta el cielo." },
+  { n: "Ángel", s: "yesod", p: ["angel*"], t: "Un ángel es un mensajero: puede que alguien o algo te esté trayendo un mensaje importante." },
+  { n: "Puerta", s: "bina", p: ["puerta*","portal*","entrada*"], t: "Una puerta es una oportunidad nueva que se abre. Fíjate en si estaba abierta o cerrada." },
+  { n: "Llave", s: "bina", p: ["llave","llaves"], t: "Una llave es la solución a algo, o el acceso a una etapa nueva." },
+  { n: "Casa", s: "maljut", p: ["casa","casas","hogar*","habitacion*","cuarto"], t: "La casa eres tú y tu vida. Cómo estaba la casa en el sueño dice mucho de cómo te sientes." },
+  { n: "Jardín", s: "maljut", p: ["jardin*","huerto*","bosque*","campo","prado*"], t: "Un jardín o un campo es un lugar de paz y de crecimiento, como un pequeño paraíso." },
+  { n: "Flores", s: "maljut", p: ["flor","flores","rosa","rosas"], t: "Las flores son belleza y cosas bonitas que están floreciendo en tu vida." },
+  { n: "Árbol", s: "tiferet", p: ["arbol*","raices","raiz","ramas"], t: "Un árbol es crecer sin olvidar de dónde vienes: raíces firmes y ramas hacia arriba." },
+  { n: "Fruta", s: "maljut", p: ["fruta*","fruto*","manzana*","granada*","uvas"], t: "La fruta es el resultado de un esfuerzo: algo que has cuidado empieza a dar frutos." },
+  { n: "Comida", s: "jesed", p: ["pan","comida","comer","comia","comiendo"], t: "La comida habla de lo que te alimenta, no solo el cuerpo: cariño, apoyo, cuidado." },
+  { n: "Vino", s: "bina", p: ["vino"], t: "El vino se relaciona con los secretos: puede que algo escondido esté a punto de salir a la luz." },
+  { n: "Oro y joyas", s: "guevura", p: ["oro","dorad*","joya*","tesoro*"], t: "El oro es algo valioso que se consigue con esfuerzo. Puede hablar de lo que vales tú." },
+  { n: "Dinero", s: "jesed", p: ["plata","dinero","monedas","billetes"], t: "El dinero en sueños habla de abundancia y de lo que tienes para dar y recibir." },
+  { n: "Bebé", s: "bina", p: ["bebe*","embaraz*","parto","nacimiento","naci*"], t: "Un bebé o un embarazo casi siempre significa algo nuevo que está naciendo en tu vida: un proyecto, una ilusión, una etapa." },
+  { n: "Madre", s: "bina", p: ["madre","mama","mami"], t: "La madre representa protección, cuidado y sentirte comprendida." },
+  { n: "Padre", s: "jojma", p: ["padre","papa","papi"], t: "El padre representa guía, consejo y la fuerza para empezar cosas." },
+  { n: "Niños", s: "netzaj", p: ["nino","nina","ninos","ninas","infancia"], t: "Los niños hablan de futuro, de ilusión y de tu parte más inocente." },
+  { n: "Boda", s: "yesod", p: ["boda*","casar*","casab*","novi*","anillo*"], t: "Una boda es unión y compromiso, con una persona o con un proyecto o decisión." },
+  { n: "Amor y besos", s: "tiferet", p: ["bes*","amor","enamor*","pareja"], t: "Besos y amor en sueños hablan de conexión y de ganas de sentirte cerca de alguien." },
+  { n: "Muerte", s: "bina", p: ["muert*","muri*","morir","morian","funeral*","entierro"], t: "Tranquila: soñar con la muerte casi nunca es literal. Normalmente significa que algo termina para que empiece otra etapa." },
+  { n: "Abuelos y familiares fallecidos", s: "hod", p: ["abuel*","antepasad*","ancestr*","difunt*"], t: "Soñar con quienes ya no están suele ser una forma de recordarlos y sentir su cariño y su apoyo." },
+  { n: "Montaña", s: "netzaj", p: ["montan*","monte","cima","subi*","escalar","escalaba","escalando"], t: "Subir una montaña es esforzarte por llegar a una meta. Cuesta, pero vas avanzando." },
+  { n: "Camino o viaje", s: "netzaj", p: ["camino*","camin*","viaj*","sender*","carretera*"], t: "Un camino o un viaje es tu vida en movimiento: hacia dónde vas y cómo te sientes en el trayecto." },
+  { n: "Coche, tren o avión", s: "netzaj", p: ["coche*","tren*","avion*","barco*","autobus*","conduc*"], t: "Un vehículo muestra cómo te mueves por la vida. Fíjate en quién conducía: ¿tú o otra persona?" },
+  { n: "Ser perseguida", s: "guevura", p: ["persegu*","persigu*","huia","huir","huyendo","escap*"], t: "Que te persigan suele significar que estás evitando algo: un miedo, una conversación pendiente o una decisión." },
+  { n: "Tormenta", s: "guevura", p: ["tormenta*","trueno*","rayo","rayos","tempestad*","viento*"], t: "Una tormenta es un momento movido o de tensión. Después de la tormenta, todo queda más limpio." },
+  { n: "Arcoíris", s: "yesod", p: ["arcoiris","arco iris"], t: "El arcoíris es una promesa de que todo va a ir bien, como en la historia de Noé." },
+  { n: "Serpiente", s: "guevura", p: ["serpiente*","culebra*","vibora*"], t: "La serpiente da miedo, pero también es cambio y transformación, como cuando muda la piel. Algo que te asusta puede acabar siendo bueno." },
+  { n: "Peces", s: "yesod", p: ["pez","peces","pescado*"], t: "En la tradición judía los peces traen buena suerte y protección." },
+  { n: "Pájaros", s: "jesed", p: ["pajar*","ave","aves","paloma*","pajaritos"], t: "Los pájaros, sobre todo la paloma, son paz y buenas noticias." },
+  { n: "León", s: "jesed", p: ["leon","leones","leona*"], t: "El león es valentía y fuerza, pero con el corazón noble." },
+  { n: "Toro o vaca", s: "guevura", p: ["toro*","buey*","vaca*"], t: "El toro es mucha fuerza que tienes que aprender a dirigir bien." },
+  { n: "Águila", s: "tiferet", p: ["aguila*"], t: "El águila ve las cosas desde arriba: te invita a mirar tu situación con perspectiva." },
+  { n: "Caballo", s: "netzaj", p: ["caballo*","yegua*"], t: "El caballo es energía, libertad y ganas de llegar lejos." },
+  { n: "Perro", s: "guevura", p: ["perro*","perrit*"], t: "El perro es lealtad y protección. También puede hablar de alguien que te cuida." },
+  { n: "Gato", s: "hod", p: ["gato*","gatit*"], t: "El gato es intuición e independencia: saber esperar y observar." },
+  { n: "Mariposa", s: "bina", p: ["mariposa*","oruga*"], t: "La mariposa es transformación: estás cambiando, aunque sea poco a poco." },
+  { n: "Libros o letras", s: "jojma", p: ["libro*","letra*","escrib*","leer","leia","palabras"], t: "Libros y letras indican que hay un mensaje para ti. Intenta recordar qué ponía." },
+  { n: "Lugar sagrado", s: "maljut", p: ["templo*","sinagoga*","iglesia*","altar*"], t: "Un templo o una iglesia habla de buscar paz interior y algo más grande que tú." },
+  { n: "Velas", s: "tiferet", p: ["vela","velas"], t: "Una vela es tu luz interior, tu alma. Te pide que la cuides." },
+  { n: "Corona", s: "keter", p: ["corona*"], t: "Una corona es lo más alto: tus metas y deseos más grandes." },
+  { n: "Rey o reina", s: "maljut", p: ["rey","reyes","reina*","princes*","principe*"], t: "Ser reina o ver a un rey habla de ocupar tu lugar con seguridad y dignidad." },
+  { n: "Pelo", s: "keter", p: ["pelo","cabello*","melena"], t: "El pelo habla de tu fuerza y de tu imagen. Cortárselo puede ser un cambio de etapa." },
+  { n: "Dientes", s: "hod", p: ["diente*","muela*"], t: "Perder dientes es uno de los sueños más comunes: suele reflejar miedo a perder el control o a lo que piensen los demás." },
+  { n: "Estar desnuda", s: "hod", p: ["desnud*"], t: "Estar desnuda en un sueño es sentirte expuesta o vulnerable. No es malo: mostrarse como una es también ser auténtica." },
+  { n: "Ropa", s: "hod", p: ["ropa","vestido*","vestia","zapato*"], t: "La ropa es cómo te muestras ante los demás. Fíjate en si te quedaba bien o te incomodaba." },
+  { n: "Examen o colegio", s: "hod", p: ["examen*","prueba*","clase","colegio","escuela","universidad"], t: "Los exámenes en sueños reflejan sentirte juzgada o presionada. Recuerda que no todo depende de ti." },
+  { n: "Perderse", s: "tiferet", p: ["perdid*","perdi","perderme","desorient*"], t: "Perderte en un sueño suele significar que estás buscando tu camino o no sabes qué decisión tomar." },
+  { n: "Llorar", s: "bina", p: ["llor*","lagrima*"], t: "Llorar en sueños es soltar algo que llevabas dentro. El Talmud dice que las lágrimas siempre son escuchadas." },
+  { n: "Reír", s: "jesed", p: ["rei*","risa*","feliz","alegr*"], t: "Reír en sueños es alegría y ganas de disfrutar." },
+  { n: "Espejo", s: "tiferet", p: ["espejo*","reflejo*"], t: "Un espejo te invita a mirarte de verdad: cómo te ves tú y cómo te ven los demás." },
+  { n: "Pozo, cueva o túnel", s: "bina", p: ["pozo*","cueva*","tunel*"], t: "Un lugar profundo u oscuro es mirar hacia dentro de ti. A veces las respuestas están ahí." },
+  { n: "Color blanco", s: "jesed", p: ["blanc*","nieve"], t: "El blanco es pureza, calma y bondad." },
+  { n: "Color rojo", s: "guevura", p: ["rojo*","roja*","sangre"], t: "El rojo es intensidad: pasión, energía o enfado." },
+  { n: "Color azul", s: "maljut", p: ["azul*"], t: "El azul es calma y serenidad, como el cielo o el mar." },
+  { n: "Color verde", s: "tiferet", p: ["verde*"], t: "El verde es equilibrio, salud y esperanza." },
 ];
 
 const EMOCIONES = {
-  paz:       { s: "tiferet", t: "La paz que sentiste es señal de armonía interior: tu alma está integrando lo que vive." },
-  alegria:   { s: "jesed",   t: "La alegría del sueño refleja apertura y abundancia: el flujo de Jésed está activo en ti." },
-  miedo:     { s: "guevura", t: "El miedo no es mala señal: en la Cábala, Guevurá muestra dónde hace falta fuerza y límites para crecer." },
-  tristeza:  { s: "bina",    t: "La tristeza puede ser una gestación silenciosa: Biná transforma el dolor en comprensión." },
-  confusion: { s: "hod",     t: "La confusión invita a soltar el control y escuchar con humildad, como enseña Hod." },
-  anhelo:    { s: "yesod",   t: "El anhelo es el deseo de unión que mueve Yesod: algo en ti busca conectar." },
+  paz:       { s: "tiferet", t: "Que te sintieras en paz es muy buena señal: por dentro estás más en calma de lo que crees." },
+  alegria:   { s: "jesed",   t: "La alegría del sueño indica que estás en un buen momento para recibir y dar cosas buenas." },
+  miedo:     { s: "guevura", t: "Que pasaras miedo no significa que vaya a pasar algo malo. Suele señalar algo que te preocupa y que puedes afrontar." },
+  tristeza:  { s: "bina",    t: "La tristeza del sueño puede ser tu forma de procesar algo. Es normal y ayuda a sanar." },
+  confusion: { s: "hod",     t: "La confusión indica que no tienes que tenerlo todo claro ahora. Está bien no saber." },
+  anhelo:    { s: "yesod",   t: "Ese anhelo muestra que echas de menos a alguien o algo, o que buscas sentirte más unida a alguien." },
 };
 
 const CITAS = [
   ["Un sueño que no se interpreta es como una carta que no se lee.", "Talmud, Berajot 55a"],
-  ["Todos los sueños siguen a la boca: se cumplen según como se interpretan.", "Talmud, Berajot 55b"],
-  ["El sueño es una sexagésima parte de la profecía.", "Talmud, Berajot 57b"],
-  ["Así como no hay trigo sin paja, no hay sueño sin cosas vanas.", "Talmud, Berajot 55a"],
-  ["A una persona solo se le muestran en sueños los pensamientos de su corazón.", "Talmud, Berajot 55b"],
+  ["Los sueños se cumplen según cómo se interpretan.", "Talmud, Berajot 55b"],
+  ["Los sueños tienen un poquito (una sesentava parte) de profecía.", "Talmud, Berajot 57b"],
+  ["Igual que no hay trigo sin paja, no hay sueño sin alguna tontería.", "Talmud, Berajot 55a"],
+  ["En sueños solo vemos lo que ya llevamos en el corazón.", "Talmud, Berajot 55b"],
 ];
 
 /* ───────────── Lógica ───────────── */
@@ -356,27 +356,27 @@ function interpretar() {
   const principal = orden[0] || "yesod";
   const sef = SEFIROT[principal];
 
-  $("r-nombre").textContent = sef.nombre;
+  $("r-nombre").textContent = sef.tema;
   $("r-hebreo").textContent = sef.hebreo;
-  $("r-clave").textContent = sef.clave;
+  $("r-clave").textContent = `En la Cábala se llama ${sef.nombre}`;
 
   let lectura = sef.lectura;
   if (emocion) lectura += " " + EMOCIONES[emocion].t;
-  const secundarias = orden.slice(1, 3).map((k) => SEFIROT[k].nombre);
-  if (secundarias.length) lectura += ` También aparecen ecos de ${secundarias.join(" y ")}, que matizan este mensaje.`;
-  if (!encontrados.length) lectura += " No he reconocido símbolos concretos, así que tu sueño se lee desde Yesod, la puerta por la que llegan los sueños.";
+  const secundarias = orden.slice(1, 3).map((k) => SEFIROT[k].tema.toLowerCase());
+  if (secundarias.length) lectura += ` Además, tu sueño también toca otros temas: ${secundarias.map((x) => "«" + x + "»").join(" y ")}.`;
+  if (!encontrados.length) lectura += " No he encontrado símbolos concretos en tu texto, así que te doy una lectura general. Prueba a contar más detalles: lugares, animales, colores, personas.";
   $("r-lectura").textContent = lectura;
 
   const ul = $("r-simbolos"); ul.innerHTML = "";
   encontrados.slice(0, 8).forEach((s) => {
     const li = document.createElement("li");
-    li.innerHTML = `<b>${s.n}</b><span class="pill">${SEFIROT[s.s].nombre}</span><br>${s.t}`;
+    li.innerHTML = `<b>${s.n}</b><span class="pill">${SEFIROT[s.s].corto}</span><br>${s.t}`;
     ul.appendChild(li);
   });
   $("r-simbolos-bloque").style.display = encontrados.length ? "" : "none";
 
   let consejo = sef.consejo;
-  if (emocion === "miedo") consejo += "<br><br><b>Hatavat jalom:</b> el Talmud enseña que, tras un sueño que inquieta, puedes contárselo a tres personas de confianza y que ellas te respondan «Jalom tov» (un buen sueño). Los sueños siguen a la boca: interprétalo para bien.";
+  if (emocion === "miedo") consejo += "<br><br><b>Si el sueño te dejó mal cuerpo:</b> una costumbre judía muy antigua es contárselo a tres personas de confianza y que te respondan «ha sido un buen sueño». La idea es que los sueños se cumplen según cómo los interpretas, así que quédate con la lectura positiva.";
   $("r-consejo").innerHTML = consejo;
 
   const c = CITAS[Math.floor(Math.random() * CITAS.length)];
@@ -431,7 +431,7 @@ function pintarDiario() {
     const div = document.createElement("div"); div.className = "entrada";
     const fecha = new Date(e.fecha).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
     const info = document.createElement("div");
-    info.innerHTML = `<b>${fecha}</b> · <span class="pill">${SEFIROT[e.sefira].nombre}</span>`;
+    info.innerHTML = `<b>${fecha}</b> · <span class="pill">${SEFIROT[e.sefira].tema}</span>`;
     const p = document.createElement("p"); p.textContent = e.texto; info.appendChild(p);
     const borrar = document.createElement("button"); borrar.title = "Borrar"; borrar.setAttribute("aria-label", "Borrar sueño"); borrar.textContent = "✕";
     borrar.onclick = () => { const n = leerDiario(); n.splice(i, 1); escribirDiario(n); pintarDiario(); };
