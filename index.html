@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cora</title>
+  <meta name="description" content="Página personal de Cora">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <style>
+    :root {
+      --rosa: #f6d6de;
+      --rosa-fuerte: #d98a9e;
+      --lavanda: #e6dcf5;
+      --melocoton: #fbe7d9;
+      --crema: #fffaf7;
+      --texto: #5b4650;
+      --texto-suave: #8a737d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      font-family: "Nunito", system-ui, sans-serif;
+      color: var(--texto);
+      background: linear-gradient(135deg, var(--melocoton) 0%, var(--rosa) 50%, var(--lavanda) 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Burbujas decorativas de fondo */
+    .burbuja {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: .55;
+      z-index: 0;
+      animation: flotar 14s ease-in-out infinite;
+    }
+    .b1 { width: 280px; height: 280px; background: #fff; top: -60px; left: -60px; }
+    .b2 { width: 220px; height: 220px; background: #f3c4d2; bottom: -40px; right: -40px; animation-delay: -5s; }
+    .b3 { width: 160px; height: 160px; background: #d9ccf0; top: 55%; left: 8%; animation-delay: -9s; }
+
+    @keyframes flotar {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -25px); }
+    }
+
+    .tarjeta {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 48px 32px 40px;
+      text-align: center;
+      background: rgba(255, 250, 247, .72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 32px;
+      box-shadow: 0 20px 50px rgba(217, 138, 158, .25);
+      animation: aparecer .9s ease-out both;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 46px;
+      background: linear-gradient(135deg, #fde2e8, #efe4fb);
+      border: 4px solid #fff;
+      box-shadow: 0 8px 20px rgba(217, 138, 158, .25);
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(2.6rem, 9vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: .5px;
+    }
+
+    .adorno {
+      margin: 10px 0 18px;
+      color: var(--rosa-fuerte);
+      letter-spacing: 8px;
+      font-size: .9rem;
+    }
+
+    .frase {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      color: var(--texto-suave);
+      margin-bottom: 32px;
+    }
+
+    .botones {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .boton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      color: var(--texto);
+      background: #fff;
+      border: 1.5px solid var(--rosa);
+      box-shadow: 0 4px 14px rgba(217, 138, 158, .15);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .boton svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .boton:hover,
+    .boton:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(217, 138, 158, .3);
+      outline: none;
+    }
+
+    .boton.instagram:hover,
+    .boton.instagram:focus-visible { background: linear-gradient(135deg, #fde2e8, #f9e3d6); }
+
+    .boton.vinted:hover,
+    .boton.vinted:focus-visible { background: linear-gradient(135deg, #e3f3f1, #efe4fb); }
+
+    footer {
+      margin-top: 28px;
+      font-size: .8rem;
+      color: var(--texto-suave);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="burbuja b1"></div>
+  <div class="burbuja b2"></div>
+  <div class="burbuja b3"></div>
+
+  <main class="tarjeta">
+    <div class="avatar" aria-hidden="true">🌸</div>
+
+    <!-- ✏️ Cambia aquí tu nombre -->
+    <h1>Cora</h1>
+    <div class="adorno" aria-hidden="true">✿ ✿ ✿</div>
+
+    <!-- ✏️ Cambia aquí tu frase -->
+    <p class="frase">Amante de las cosas bonitas, la moda con segunda vida y los pequeños detalles que alegran el día.</p>
+
+    <nav class="botones">
+      <!-- ✏️ Pon tu usuario de Instagram en el enlace -->
+      <a class="boton instagram" href="https://www.instagram.com/TU_USUARIO" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+
+      <!-- ✏️ Pon el enlace a tu perfil de Vinted -->
+      <a class="boton vinted" href="https://www.vinted.es/member/TU_ID" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 7h12l-1 13H7L6 7z"/>
+          <path d="M9 7a3 3 0 0 1 6 0"/>
+        </svg>
+        Mi armario en Vinted
+      </a>
+    </nav>
+
+    <footer>Hecho con cariño ♡</footer>
+  </main>
+</body>
+</html>
