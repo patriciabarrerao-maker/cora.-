@@ -3,200 +3,472 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cora</title>
-  <meta name="description" content="Página personal de Cora">
+  <title>Sueños y Cábala</title>
+  <meta name="description" content="Interpreta tus sueños a través del Árbol de la Vida de la Cábala">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Frank+Ruhl+Libre:wght@500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
   <style>
     :root {
-      --rosa: #f6d6de;
-      --rosa-fuerte: #d98a9e;
-      --lavanda: #e6dcf5;
-      --melocoton: #fbe7d9;
-      --crema: #fffaf7;
-      --texto: #5b4650;
-      --texto-suave: #8a737d;
+      --noche: #2e2752;
+      --lavanda: #8f80c9;
+      --lavanda-claro: #e9e3fa;
+      --rosa: #f3cbd8;
+      --oro: #d8b46a;
+      --oro-suave: #f4e6c4;
+      --crema: #fffaf6;
+      --texto: #3f3554;
+      --texto-suave: #7a6f8f;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
       font-family: "Nunito", system-ui, sans-serif;
       color: var(--texto);
-      background: linear-gradient(135deg, var(--melocoton) 0%, var(--rosa) 50%, var(--lavanda) 100%);
+      background: linear-gradient(180deg, #3a3266 0%, #6f5fa8 38%, #c9a5c9 75%, #f3cbd8 100%);
       background-attachment: fixed;
       overflow-x: hidden;
     }
-
-    /* Burbujas decorativas de fondo */
-    .burbuja {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: .55;
-      z-index: 0;
-      animation: flotar 14s ease-in-out infinite;
+    /* Estrellas */
+    .cielo { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .cielo i {
+      position: absolute; width: 2px; height: 2px; border-radius: 50%;
+      background: #fff; opacity: .7; animation: titilar 4s ease-in-out infinite;
     }
-    .b1 { width: 280px; height: 280px; background: #fff; top: -60px; left: -60px; }
-    .b2 { width: 220px; height: 220px; background: #f3c4d2; bottom: -40px; right: -40px; animation-delay: -5s; }
-    .b3 { width: 160px; height: 160px; background: #d9ccf0; top: 55%; left: 8%; animation-delay: -9s; }
+    @keyframes titilar { 50% { opacity: .15; } }
 
-    @keyframes flotar {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(20px, -25px); }
+    .contenedor { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding: 48px 16px 40px; }
+
+    header { text-align: center; color: #fff; margin-bottom: 28px; }
+    .luna { font-size: 44px; filter: drop-shadow(0 0 18px rgba(255, 236, 190, .6)); }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600;
+      font-size: clamp(2.3rem, 8vw, 3.1rem); line-height: 1.1; margin: 8px 0 10px;
     }
+    .subtitulo { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.2rem; opacity: .88; }
 
     .tarjeta {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      padding: 48px 32px 40px;
-      text-align: center;
-      background: rgba(255, 250, 247, .72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, .8);
-      border-radius: 32px;
-      box-shadow: 0 20px 50px rgba(217, 138, 158, .25);
-      animation: aparecer .9s ease-out both;
+      background: rgba(255, 250, 246, .92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-radius: 28px; padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(30, 20, 60, .25);
+      margin-bottom: 22px;
     }
-
-    @keyframes aparecer {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+    label { display: block; font-weight: 700; margin-bottom: 10px; }
+    textarea {
+      width: 100%; min-height: 150px; resize: vertical;
+      border: 1.5px solid var(--lavanda-claro); border-radius: 18px;
+      padding: 14px 16px; font: inherit; font-size: 1rem; line-height: 1.55;
+      color: var(--texto); background: #fff; transition: border-color .2s;
     }
+    textarea:focus { outline: none; border-color: var(--lavanda); }
 
-    .avatar {
-      width: 104px;
-      height: 104px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 46px;
-      background: linear-gradient(135deg, #fde2e8, #efe4fb);
-      border: 4px solid #fff;
-      box-shadow: 0 8px 20px rgba(217, 138, 158, .25);
+    .emociones { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 22px; }
+    .emociones button {
+      font: inherit; font-size: .92rem; cursor: pointer;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1.5px solid var(--lavanda-claro); background: #fff; color: var(--texto);
+      transition: .2s;
     }
+    .emociones button[aria-pressed="true"] { background: var(--lavanda); border-color: var(--lavanda); color: #fff; }
 
-    h1 {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-weight: 600;
-      font-size: clamp(2.6rem, 9vw, 3.2rem);
-      line-height: 1.1;
-      letter-spacing: .5px;
+    .principal {
+      width: 100%; font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
+      padding: 16px; border: 0; border-radius: 999px; color: #fff;
+      background: linear-gradient(135deg, #8f80c9, #d79ab3);
+      box-shadow: 0 8px 22px rgba(143, 128, 201, .45);
+      transition: transform .2s, box-shadow .2s;
     }
+    .principal:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(143, 128, 201, .55); }
+    .aviso { color: #b4587a; font-size: .9rem; margin-top: 10px; text-align: center; min-height: 1.2em; }
 
-    .adorno {
-      margin: 10px 0 18px;
-      color: var(--rosa-fuerte);
-      letter-spacing: 8px;
-      font-size: .9rem;
+    /* Resultado */
+    #resultado { display: none; animation: aparecer .7s ease-out both; }
+    @keyframes aparecer { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    .cabecera-res { display: grid; grid-template-columns: 1fr 150px; gap: 18px; align-items: center; }
+    .etiqueta { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--texto-suave); }
+    .sefira-nombre { font-family: "Cormorant Garamond", serif; font-size: 2.3rem; font-weight: 600; line-height: 1.1; margin: 4px 0 2px; }
+    .hebreo { font-family: "Frank Ruhl Libre", serif; font-size: 1.5rem; color: var(--oro); }
+    .clave { font-style: italic; color: var(--texto-suave); margin-top: 4px; font-family: "Cormorant Garamond", serif; font-size: 1.15rem; }
+    svg.arbol { width: 100%; height: auto; }
+
+    h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: 1.45rem; margin: 24px 0 10px; }
+    .texto { line-height: 1.7; }
+    .simbolos { list-style: none; display: grid; gap: 10px; }
+    .simbolos li { background: #fff; border: 1px solid var(--lavanda-claro); border-radius: 16px; padding: 12px 14px; line-height: 1.55; }
+    .simbolos b { color: var(--noche); }
+    .pill { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--oro-suave); color: #8a6a24; margin-left: 6px; vertical-align: 1px; }
+    .consejo { background: linear-gradient(135deg, #f4effd, #fdf0f4); border-radius: 18px; padding: 16px 18px; line-height: 1.65; }
+    .cita { margin-top: 22px; text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.2rem; color: var(--texto-suave); }
+    .cita small { display: block; font-family: "Nunito", sans-serif; font-style: normal; font-size: .8rem; margin-top: 4px; }
+
+    .acciones { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+    .secundario {
+      flex: 1; font: inherit; font-weight: 600; cursor: pointer; padding: 12px 16px;
+      border-radius: 999px; border: 1.5px solid var(--lavanda); background: #fff; color: var(--texto);
+      transition: .2s;
     }
+    .secundario:hover { background: var(--lavanda-claro); }
 
-    .frase {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      line-height: 1.5;
-      color: var(--texto-suave);
-      margin-bottom: 32px;
+    /* Diario */
+    #diario .vacio { color: var(--texto-suave); font-style: italic; }
+    .entrada { border-top: 1px solid var(--lavanda-claro); padding: 12px 0; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+    .entrada:first-of-type { border-top: 0; }
+    .entrada p { color: var(--texto-suave); font-size: .92rem; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .entrada button { background: none; border: 0; color: var(--texto-suave); cursor: pointer; font-size: 1.1rem; }
+
+    footer { text-align: center; color: rgba(63, 53, 84, .8); font-size: .82rem; line-height: 1.6; padding: 8px 12px; }
+
+    @media (max-width: 520px) {
+      .cabecera-res { grid-template-columns: 1fr; }
+      svg.arbol { max-width: 160px; margin: 0 auto; display: block; grid-row: 1; }
+      .tarjeta { padding: 24px 18px; }
     }
-
-    .botones {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .boton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 24px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      color: var(--texto);
-      background: #fff;
-      border: 1.5px solid var(--rosa);
-      box-shadow: 0 4px 14px rgba(217, 138, 158, .15);
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    .boton svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-    .boton:hover,
-    .boton:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(217, 138, 158, .3);
-      outline: none;
-    }
-
-    .boton.instagram:hover,
-    .boton.instagram:focus-visible { background: linear-gradient(135deg, #fde2e8, #f9e3d6); }
-
-    .boton.vinted:hover,
-    .boton.vinted:focus-visible { background: linear-gradient(135deg, #e3f3f1, #efe4fb); }
-
-    footer {
-      margin-top: 28px;
-      font-size: .8rem;
-      color: var(--texto-suave);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
-    }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
   </style>
 </head>
 <body>
-  <div class="burbuja b1"></div>
-  <div class="burbuja b2"></div>
-  <div class="burbuja b3"></div>
+  <div class="cielo" id="cielo" aria-hidden="true"></div>
 
-  <main class="tarjeta">
-    <div class="avatar" aria-hidden="true">🌸</div>
+  <div class="contenedor">
+    <header>
+      <div class="luna" aria-hidden="true">🌙</div>
+      <h1>Sueños y Cábala</h1>
+      <p class="subtitulo">Descubre qué refleja tu sueño en el Árbol de la Vida</p>
+    </header>
 
-    <!-- ✏️ Cambia aquí tu nombre -->
-    <h1>Cora</h1>
-    <div class="adorno" aria-hidden="true">✿ ✿ ✿</div>
+    <section class="tarjeta">
+      <label for="sueno">¿Qué has soñado?</label>
+      <textarea id="sueno" placeholder="Ej.: Soñé que volaba sobre el mar de noche y veía una escalera de luz que subía hasta las estrellas…"></textarea>
 
-    <!-- ✏️ Cambia aquí tu frase -->
-    <p class="frase">Amante de las cosas bonitas, la moda con segunda vida y los pequeños detalles que alegran el día.</p>
+      <label style="margin-top:18px">¿Cómo te sentiste en el sueño?</label>
+      <div class="emociones" id="emociones">
+        <button type="button" data-e="paz" aria-pressed="false">🕊️ En paz</button>
+        <button type="button" data-e="alegria" aria-pressed="false">✨ Alegría</button>
+        <button type="button" data-e="miedo" aria-pressed="false">🌫️ Miedo</button>
+        <button type="button" data-e="tristeza" aria-pressed="false">💧 Tristeza</button>
+        <button type="button" data-e="confusion" aria-pressed="false">🌀 Confusión</button>
+        <button type="button" data-e="anhelo" aria-pressed="false">💗 Anhelo</button>
+      </div>
 
-    <nav class="botones">
-      <!-- ✏️ Pon tu usuario de Instagram en el enlace -->
-      <a class="boton instagram" href="https://www.instagram.com/TU_USUARIO" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-        Instagram
-      </a>
+      <button class="principal" id="interpretar">Interpretar mi sueño</button>
+      <p class="aviso" id="aviso" role="status"></p>
+    </section>
 
-      <!-- ✏️ Pon el enlace a tu perfil de Vinted -->
-      <a class="boton vinted" href="https://www.vinted.es/member/TU_ID" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M6 7h12l-1 13H7L6 7z"/>
-          <path d="M9 7a3 3 0 0 1 6 0"/>
-        </svg>
-        Mi armario en Vinted
-      </a>
-    </nav>
+    <section class="tarjeta" id="resultado" aria-live="polite">
+      <div class="cabecera-res">
+        <div>
+          <div class="etiqueta">Tu sueño resuena con</div>
+          <div class="sefira-nombre" id="r-nombre"></div>
+          <div class="hebreo" id="r-hebreo"></div>
+          <div class="clave" id="r-clave"></div>
+        </div>
+        <svg class="arbol" id="arbol" viewBox="0 0 200 380" role="img" aria-label="Árbol de la Vida"></svg>
+      </div>
 
-    <footer>Hecho con cariño ♡</footer>
-  </main>
+      <h2>Lectura</h2>
+      <p class="texto" id="r-lectura"></p>
+
+      <div id="r-simbolos-bloque">
+        <h2>Símbolos de tu sueño</h2>
+        <ul class="simbolos" id="r-simbolos"></ul>
+      </div>
+
+      <h2>Para tu despertar</h2>
+      <div class="consejo" id="r-consejo"></div>
+
+      <p class="cita" id="r-cita"></p>
+
+      <div class="acciones">
+        <button class="secundario" id="guardar">📖 Guardar en mi diario</button>
+        <button class="secundario" id="otro">🌙 Otro sueño</button>
+      </div>
+    </section>
+
+    <section class="tarjeta" id="diario">
+      <h2 style="margin-top:0">Mi diario de sueños</h2>
+      <div id="lista"></div>
+    </section>
+
+    <footer>
+      Interpretación simbólica inspirada en la Cábala y en el Talmud (tratado Berajot).<br>
+      Es una invitación a reflexionar, no una predicción. Tus sueños se guardan solo en este dispositivo.
+    </footer>
+  </div>
+
+<script>
+/* ───────────── Las diez Sefirot ───────────── */
+const SEFIROT = {
+  keter:   { nombre: "Kéter",   hebreo: "כתר",   clave: "La Corona · voluntad y lo oculto", x: 100, y: 24,
+    lectura: "Kéter es la raíz más alta del Árbol, la voluntad pura anterior a cualquier pensamiento. Un sueño que toca Kéter habla de un deseo profundo de tu alma que todavía no tiene palabras: algo en ti quiere elevarse, cambiar de nivel o empezar de cero.",
+    consejo: "Antes de levantarte, pregúntate: «¿Qué quiero de verdad, por debajo de todo lo demás?». Escribe la primera respuesta que llegue, aunque te sorprenda." },
+  jojma:   { nombre: "Jojmá",   hebreo: "חכמה",  clave: "Sabiduría · la chispa de la intuición", x: 168, y: 72,
+    lectura: "Jojmá es el primer destello, la idea que aparece de golpe. Tu sueño trae una intuición nueva, una semilla de comprensión que llega antes de que puedas explicarla. Presta atención a las imágenes que te dejaron una sensación de «ajá».",
+    consejo: "Ten a mano una libreta: las intuiciones de Jojmá se desvanecen rápido. Anota las imágenes más luminosas del sueño sin intentar ordenarlas todavía." },
+  bina:    { nombre: "Biná",    hebreo: "בינה",  clave: "Entendimiento · la madre que gesta", x: 32, y: 72,
+    lectura: "Biná es el seno donde la chispa de Jojmá se desarrolla y toma forma; la tradición habla de las «cincuenta puertas del entendimiento». Tu sueño muestra algo que se está gestando en ti —un proyecto, una emoción, una nueva etapa— y que necesita tiempo y cuidado.",
+    consejo: "No fuerces respuestas hoy. Biná también es el lugar del retorno (teshuvá): dedica unos minutos a mirar con ternura de dónde vienes y hacia dónde vas." },
+  jesed:   { nombre: "Jésed",   hebreo: "חסד",   clave: "Bondad · amor que se expande como el agua", x: 168, y: 150,
+    lectura: "Jésed es el amor generoso, la abundancia que fluye sin medida, asociada al agua y a Abraham. Tu sueño refleja un momento de apertura: hay bendición disponible para ti y también ganas de darla a los demás.",
+    consejo: "Haz hoy un acto de bondad pequeño y concreto (la tradición lo llama tzedaká). Dar ancla la abundancia que el sueño te ha mostrado." },
+  guevura: { nombre: "Guevurá", hebreo: "גבורה", clave: "Fuerza · límites, rigor y purificación", x: 32, y: 150,
+    lectura: "Guevurá es el fuego que pone límites y purifica, asociada a Isaac. Los sueños intensos o inquietantes suelen pasar por aquí: señalan algo que pide orden, un «no» que necesitas decir o un miedo que se puede transformar en fuerza.",
+    consejo: "Elige un solo límite sano que quieras poner esta semana. Recuerda que en la Cábala el rigor existe para que el amor tenga forma, no para castigar." },
+  tiferet: { nombre: "Tiféret", hebreo: "תפארת", clave: "Belleza · armonía y verdad del corazón", x: 100, y: 196,
+    lectura: "Tiféret está en el corazón del Árbol y equilibra la bondad y el rigor; se asocia a Jacob y a la verdad. Tu sueño busca armonía: quizá estás integrando dos partes de ti, o tu corazón te pide vivir de forma más auténtica.",
+    consejo: "Busca hoy un momento de belleza consciente: música, naturaleza, una conversación sincera. Tiféret crece cuando lo que sientes y lo que haces coinciden." },
+  netzaj:  { nombre: "Nétsaj",  hebreo: "נצח",   clave: "Victoria · perseverancia y movimiento", x: 168, y: 262,
+    lectura: "Nétsaj es la energía que avanza y no se rinde, asociada a Moisés. Los caminos, viajes y subidas del sueño hablan de tu deseo de llegar a algún sitio. El mensaje: tu esfuerzo tiene sentido, sigue adelante.",
+    consejo: "Da hoy un paso, aunque sea mínimo, hacia aquello que vienes posponiendo. Nétsaj se alimenta de constancia, no de grandes gestos." },
+  hod:     { nombre: "Hod",     hebreo: "הוד",   clave: "Esplendor · humildad y gratitud", x: 32, y: 262,
+    lectura: "Hod es la capacidad de reconocer, agradecer y soltar el control, asociada a Aarón. Los sueños de exámenes, vulnerabilidad o pérdidas pequeñas suelen tocar Hod: te invitan a aceptar lo que no depende de ti con humildad.",
+    consejo: "Antes de dormir, escribe tres cosas por las que des las gracias. La palabra hebrea «hodaá» (gratitud) comparte raíz con Hod." },
+  yesod:   { nombre: "Yesod",   hebreo: "יסוד",  clave: "Fundamento · conexión, vínculo y sueños", x: 100, y: 300,
+    lectura: "Yesod es el canal que une el mundo interior con el exterior, y se asocia a José, el gran intérprete de sueños de la Torá. Tu sueño habla de vínculos, de intimidad y de lo que deseas unir en tu vida: una relación, un compromiso, un puente entre lo que sueñas y lo que vives.",
+    consejo: "Piensa en una relación que quieras cuidar y da un gesto de conexión hoy: un mensaje, una llamada, un abrazo." },
+  maljut:  { nombre: "Maljut",  hebreo: "מלכות", clave: "Reino · la tierra, el hogar y la Shejiná", x: 100, y: 356,
+    lectura: "Maljut es la última sefirá, donde toda la luz llega al mundo concreto; se asocia a la luna, al rey David y a la Shejiná, la presencia divina. Tu sueño habla de tu vida cotidiana —casa, cuerpo, rutina— y de cómo hacer de ella un lugar sagrado.",
+    consejo: "Ordena o embellece hoy un pequeño rincón de tu casa. En la Cábala, cuidar lo material es una forma de recibir la luz de arriba." },
+};
+
+const SENDEROS = [["keter","jojma"],["keter","bina"],["keter","tiferet"],["jojma","bina"],["jojma","jesed"],["jojma","tiferet"],["bina","guevura"],["bina","tiferet"],["jesed","guevura"],["jesed","tiferet"],["jesed","netzaj"],["guevura","tiferet"],["guevura","hod"],["tiferet","netzaj"],["tiferet","yesod"],["tiferet","hod"],["netzaj","hod"],["netzaj","yesod"],["netzaj","maljut"],["hod","yesod"],["hod","maljut"],["yesod","maljut"]];
+
+/* ───────────── Diccionario de símbolos ─────────────
+   Cada palabra se compara sin tildes. Un "*" al final = cualquier terminación. */
+const SIMBOLOS = [
+  { n: "Agua", s: "jesed", p: ["agua*","rio","rios","lago*","fuente*","cascada*"], t: "El agua es la imagen clásica de Jésed: el amor y la bendición que descienden y lo nutren todo." },
+  { n: "Mar", s: "bina", p: ["mar","mares","oceano*","olas","ola","playa*"], t: "El mar es inmensidad y profundidad, como Biná: el gran útero donde se gestan las formas." },
+  { n: "Lluvia", s: "jesed", p: ["lluvia*","llovia","llover","lloviendo","llueve"], t: "En el Talmud la lluvia es una de las «tres llaves» que guarda solo Dios: bendición que llega a su tiempo." },
+  { n: "Nadar", s: "jesed", p: ["nad*"], t: "Moverse dentro del agua: aprender a dejarse llevar por el amor sin perder el rumbo." },
+  { n: "Fuego", s: "guevura", p: ["fuego*","llamas","incendi*","quem*","hoguera*"], t: "El fuego pertenece a Guevurá: consume lo que sobra y purifica lo que queda." },
+  { n: "Luz", s: "jojma", p: ["luz","luces","brill*","resplandor*","luminos*"], t: "La luz (Or) es el lenguaje de la Cábala para lo divino: una comprensión nueva te ilumina." },
+  { n: "Sol", s: "tiferet", p: ["sol","soleado","amanecer*","amanecia"], t: "El sol se asocia a Tiféret, el centro que irradia armonía hacia todo el Árbol." },
+  { n: "Luna", s: "maljut", p: ["luna*"], t: "La luna no tiene luz propia: recibe y refleja, como Maljut. Habla de receptividad y de ciclos." },
+  { n: "Estrellas", s: "jojma", p: ["estrella*","constelacion*"], t: "Chispas de luz en la oscuridad: pequeñas intuiciones que guían, como la promesa de estrellas a Abraham." },
+  { n: "Noche", s: "maljut", p: ["noche*","oscur*","tinieblas"], t: "La noche es el tiempo de Maljut, la luna; la oscuridad prepara la luz que viene." },
+  { n: "Volar", s: "keter", p: ["vol*","vuel*","flot*","levit*"], t: "Volar es la elevación del alma, el deseo de subir de nivel hacia tu raíz." },
+  { n: "Caer", s: "maljut", p: ["cai*","caer","cayendo","cayo","cayeron","caida*"], t: "La Cábala habla de «descender para ascender» (yeridá le-tsorej aliyá): toda caída prepara una subida." },
+  { n: "Escalera", s: "tiferet", p: ["escalera*","escalon*","peldan*"], t: "Evoca la escalera de Jacob, que unía cielo y tierra; Jacob es la figura de Tiféret." },
+  { n: "Ángel", s: "yesod", p: ["angel*"], t: "Los ángeles son mensajeros, canales entre mundos, igual que Yesod une lo alto con lo bajo." },
+  { n: "Puerta", s: "bina", p: ["puerta*","portal*","entrada*"], t: "La tradición habla de las «cincuenta puertas de Biná»: se abre una comprensión nueva." },
+  { n: "Llave", s: "bina", p: ["llave","llaves"], t: "Según el Talmud, hay llaves del nacimiento, la lluvia y la vida que nadie más guarda: algo esencial se abre." },
+  { n: "Casa", s: "maljut", p: ["casa","casas","hogar*","habitacion*","cuarto"], t: "La casa es tu mundo concreto, tu Maljut: el espacio donde vives lo que eres." },
+  { n: "Jardín", s: "maljut", p: ["jardin*","huerto*","bosque*","campo","prado*"], t: "El jardín evoca el Edén y el «campo de manzanos sagrados», símbolo de la Shejiná." },
+  { n: "Flores", s: "maljut", p: ["flor","flores","rosa","rosas"], t: "El Zóhar comienza hablando de una rosa entre espinas: la presencia divina en el mundo." },
+  { n: "Árbol", s: "tiferet", p: ["arbol*","raices","raiz","ramas"], t: "El propio Árbol de la Vida: crecimiento que une raíces y cielo." },
+  { n: "Fruta", s: "maljut", p: ["fruta*","fruto*","manzana*","granada*","uvas"], t: "El fruto es la luz hecha materia: algo de tu esfuerzo empieza a dar resultado." },
+  { n: "Pan", s: "jesed", p: ["pan","comida","comer","comia","comiendo"], t: "El alimento es sustento y generosidad: estás recibiendo o necesitando nutrición." },
+  { n: "Vino", s: "bina", p: ["vino"], t: "En hebreo, «vino» (yayin) y «secreto» (sod) suman lo mismo, 70: algo oculto quiere revelarse." },
+  { n: "Oro", s: "guevura", p: ["oro","dorad*","joya*","tesoro*"], t: "En la Cábala el oro corresponde a Guevurá: un valor que se forja con fuerza y fuego." },
+  { n: "Plata y dinero", s: "jesed", p: ["plata","dinero","monedas","billetes"], t: "La plata se vincula a Jésed: abundancia que fluye y que pide ser compartida." },
+  { n: "Bebé", s: "bina", p: ["bebe*","embaraz*","parto","nacimiento","naci*"], t: "Un bebé es algo nuevo que se gesta: el territorio de Biná, la madre del Árbol." },
+  { n: "Madre", s: "bina", p: ["madre","mama","mami"], t: "Biná es llamada «la Madre superior»: amparo, contención y comprensión." },
+  { n: "Padre", s: "jojma", p: ["padre","papa","papi"], t: "Jojmá es «el Padre superior»: la semilla de sabiduría que inicia la vida." },
+  { n: "Niños", s: "netzaj", p: ["nino","nina","ninos","ninas","infancia"], t: "Los niños son continuidad y futuro: energía que sigue adelante." },
+  { n: "Boda", s: "yesod", p: ["boda*","casar*","casab*","novi*","anillo*"], t: "La unión es el misterio de Yesod, que une a Tiféret con Maljut, el novio con la novia." },
+  { n: "Beso y amor", s: "tiferet", p: ["bes*","amor","enamor*","pareja"], t: "El Zóhar describe el beso como la unión de dos alientos, dos espíritus que se encuentran." },
+  { n: "Muerte", s: "bina", p: ["muert*","muri*","morir","morian","funeral*","entierro"], t: "Soñar con la muerte rara vez es literal: marca el final de una etapa y un retorno a la raíz." },
+  { n: "Abuelos y ancestros", s: "hod", p: ["abuel*","antepasad*","ancestr*","difunt*"], t: "Quienes nos precedieron traen memoria y bendición; honrarlos es un gesto de Hod." },
+  { n: "Montaña", s: "netzaj", p: ["montan*","monte","cima","subi*","escalar","escalaba","escalando"], t: "Subir una montaña evoca el Sinaí y el Moriá: esfuerzo constante hacia lo alto." },
+  { n: "Camino y viaje", s: "netzaj", p: ["camino*","camin*","viaj*","sender*","carretera*"], t: "El camino es avance y perseverancia, la energía de Nétsaj." },
+  { n: "Vehículos", s: "netzaj", p: ["coche*","tren*","avion*","barco*","autobus*","conduc*"], t: "Un vehículo indica cómo te mueves por la vida y quién lleva el control." },
+  { n: "Perseguir", s: "guevura", p: ["persegu*","persigu*","huia","huir","huyendo","escap*"], t: "Ser perseguida señala un miedo o un juicio que pide ser mirado de frente." },
+  { n: "Tormenta", s: "guevura", p: ["tormenta*","trueno*","rayo","rayos","tempestad*","viento*"], t: "La tormenta es el rigor en movimiento: algo se sacude para quedar limpio." },
+  { n: "Arcoíris", s: "yesod", p: ["arcoiris","arco iris"], t: "En el Zóhar el arcoíris es imagen de Yesod: la alianza y el puente entre cielo y tierra." },
+  { n: "Serpiente", s: "guevura", p: ["serpiente*","culebra*","vibora*"], t: "«Serpiente» (najash) suma 358, igual que «Mesías»: una amenaza que puede volverse redención." },
+  { n: "Peces", s: "yesod", p: ["pez","peces","pescado*"], t: "Los peces, siempre con los ojos abiertos, simbolizan protección; la tradición asocia a José con ellos." },
+  { n: "Aves", s: "jesed", p: ["pajar*","ave","aves","paloma*","pajaritos"], t: "La paloma de Noé trajo la rama de olivo: un mensaje de paz y de nueva tierra." },
+  { n: "León", s: "jesed", p: ["leon","leones","leona*"], t: "En la carroza de Ezequiel el león está a la derecha, el lado de Jésed: valentía generosa." },
+  { n: "Toro", s: "guevura", p: ["toro*","buey*","vaca*"], t: "El buey está a la izquierda de la carroza celestial, el lado de Guevurá: fuerza que hay que dirigir." },
+  { n: "Águila", s: "tiferet", p: ["aguila*"], t: "El águila de la visión de Ezequiel equilibra derecha e izquierda, como Tiféret." },
+  { n: "Caballo", s: "netzaj", p: ["caballo*","yegua*"], t: "El caballo es impulso y avance: energía vital que te lleva lejos." },
+  { n: "Perro", s: "guevura", p: ["perro*","perrit*"], t: "El perro guarda y vigila: lealtad y límites." },
+  { n: "Gato", s: "hod", p: ["gato*","gatit*"], t: "El gato observa en silencio: intuición, independencia y saber esperar." },
+  { n: "Mariposa", s: "bina", p: ["mariposa*","oruga*"], t: "La transformación lenta del capullo es pura Biná: lo que se gesta en secreto." },
+  { n: "Libro y letras", s: "jojma", p: ["libro*","letra*","escrib*","leer","leia","palabras"], t: "Para la Cábala el mundo fue creado con letras: un mensaje quiere ser leído." },
+  { n: "Templo", s: "maljut", p: ["templo*","sinagoga*","iglesia*","altar*"], t: "Un lugar sagrado en sueños es la Shejiná buscando morada en tu vida." },
+  { n: "Velas", s: "tiferet", p: ["vela","velas"], t: "«El alma humana es la vela de Dios» (Proverbios 20:27): tu luz interior pide cuidado." },
+  { n: "Corona", s: "keter", p: ["corona*"], t: "Kéter significa literalmente «corona»: la voluntad más alta sobre tu cabeza." },
+  { n: "Rey o reina", s: "maljut", p: ["rey","reyes","reina*","princes*","principe*"], t: "Maljut significa «reino»: es hora de ocupar tu lugar con dignidad." },
+  { n: "Cabello", s: "keter", p: ["pelo","cabello*","melena"], t: "El Zóhar describe los cabellos como canales finísimos por los que baja la luz de Kéter." },
+  { n: "Dientes", s: "hod", p: ["diente*","muela*"], t: "Perder dientes habla de miedo a perder control o imagen: una invitación a la humildad y la aceptación." },
+  { n: "Desnudez", s: "hod", p: ["desnud*"], t: "Sentirse expuesta es vulnerabilidad: Hod nos enseña que en ella también hay belleza." },
+  { n: "Ropa", s: "hod", p: ["ropa","vestido*","vestia","zapato*"], t: "La Cábala habla de las «vestiduras» del alma: pensamiento, palabra y acción." },
+  { n: "Examen", s: "hod", p: ["examen*","prueba*","clase","colegio","escuela","universidad"], t: "Los exámenes en sueños reflejan sentirte evaluada; Hod te recuerda que no todo depende de ti." },
+  { n: "Perderse", s: "tiferet", p: ["perdid*","perdi","perderme","desorient*"], t: "Perderse es buscar el centro; Tiféret es el corazón que vuelve a orientarte." },
+  { n: "Llorar", s: "bina", p: ["llor*","lagrima*"], t: "El Talmud dice que «las puertas de las lágrimas nunca se cierran»: tu emoción es escuchada." },
+  { n: "Reír", s: "jesed", p: ["rei*","risa*","feliz","alegr*"], t: "La risa abre el corazón: alegría que se expande como Jésed." },
+  { n: "Espejo", s: "tiferet", p: ["espejo*","reflejo*"], t: "La tradición dice que Moisés veía a través de un «espejo luminoso»: momento de verte con claridad." },
+  { n: "Pozo", s: "bina", p: ["pozo*","cueva*","tunel*"], t: "Un espacio profundo y oculto: comprensión que se encuentra bajando hacia dentro." },
+  { n: "Blanco", s: "jesed", p: ["blanc*","nieve"], t: "El blanco es el color de Jésed: pureza y bondad." },
+  { n: "Rojo", s: "guevura", p: ["rojo*","roja*","sangre"], t: "El rojo es el color de Guevurá: intensidad, pasión y fuerza." },
+  { n: "Azul", s: "maljut", p: ["azul*"], t: "El azul (tejélet) recuerda al mar, que recuerda al cielo, que recuerda al Trono: lo divino en lo cotidiano." },
+  { n: "Verde", s: "tiferet", p: ["verde*"], t: "El verde, color del equilibrio vital, se asocia a menudo a Tiféret." },
+];
+
+const EMOCIONES = {
+  paz:       { s: "tiferet", t: "La paz que sentiste es señal de armonía interior: tu alma está integrando lo que vive." },
+  alegria:   { s: "jesed",   t: "La alegría del sueño refleja apertura y abundancia: el flujo de Jésed está activo en ti." },
+  miedo:     { s: "guevura", t: "El miedo no es mala señal: en la Cábala, Guevurá muestra dónde hace falta fuerza y límites para crecer." },
+  tristeza:  { s: "bina",    t: "La tristeza puede ser una gestación silenciosa: Biná transforma el dolor en comprensión." },
+  confusion: { s: "hod",     t: "La confusión invita a soltar el control y escuchar con humildad, como enseña Hod." },
+  anhelo:    { s: "yesod",   t: "El anhelo es el deseo de unión que mueve Yesod: algo en ti busca conectar." },
+};
+
+const CITAS = [
+  ["Un sueño que no se interpreta es como una carta que no se lee.", "Talmud, Berajot 55a"],
+  ["Todos los sueños siguen a la boca: se cumplen según como se interpretan.", "Talmud, Berajot 55b"],
+  ["El sueño es una sexagésima parte de la profecía.", "Talmud, Berajot 57b"],
+  ["Así como no hay trigo sin paja, no hay sueño sin cosas vanas.", "Talmud, Berajot 55a"],
+  ["A una persona solo se le muestran en sueños los pensamientos de su corazón.", "Talmud, Berajot 55b"],
+];
+
+/* ───────────── Lógica ───────────── */
+const $ = (id) => document.getElementById(id);
+const normalizar = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+let emocion = null;
+let ultimo = null;
+
+function buscarSimbolos(texto) {
+  const limpio = " " + normalizar(texto).replace(/[^a-z\s]/g, " ").replace(/\s+/g, " ") + " ";
+  const palabras = limpio.trim().split(" ");
+  return SIMBOLOS.filter((sim) => sim.p.some((pat) => {
+    if (pat.includes(" ")) return limpio.includes(" " + pat + " ");
+    if (pat.endsWith("*")) { const raiz = pat.slice(0, -1); return palabras.some((w) => w.startsWith(raiz)); }
+    return palabras.includes(pat);
+  }));
+}
+
+function interpretar() {
+  const texto = $("sueno").value.trim();
+  if (texto.length < 10) { $("aviso").textContent = "Cuéntame tu sueño con un poco más de detalle 🌙"; return; }
+  $("aviso").textContent = "";
+
+  const encontrados = buscarSimbolos(texto);
+  const puntos = {};
+  encontrados.forEach((s) => (puntos[s.s] = (puntos[s.s] || 0) + 1));
+  if (emocion) puntos[EMOCIONES[emocion].s] = (puntos[EMOCIONES[emocion].s] || 0) + 1.5;
+
+  // Sin símbolos ni emoción: Yesod, la sefirá de los sueños
+  const orden = Object.keys(puntos).sort((a, b) => puntos[b] - puntos[a]);
+  const principal = orden[0] || "yesod";
+  const sef = SEFIROT[principal];
+
+  $("r-nombre").textContent = sef.nombre;
+  $("r-hebreo").textContent = sef.hebreo;
+  $("r-clave").textContent = sef.clave;
+
+  let lectura = sef.lectura;
+  if (emocion) lectura += " " + EMOCIONES[emocion].t;
+  const secundarias = orden.slice(1, 3).map((k) => SEFIROT[k].nombre);
+  if (secundarias.length) lectura += ` También aparecen ecos de ${secundarias.join(" y ")}, que matizan este mensaje.`;
+  if (!encontrados.length) lectura += " No he reconocido símbolos concretos, así que tu sueño se lee desde Yesod, la puerta por la que llegan los sueños.";
+  $("r-lectura").textContent = lectura;
+
+  const ul = $("r-simbolos"); ul.innerHTML = "";
+  encontrados.slice(0, 8).forEach((s) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<b>${s.n}</b><span class="pill">${SEFIROT[s.s].nombre}</span><br>${s.t}`;
+    ul.appendChild(li);
+  });
+  $("r-simbolos-bloque").style.display = encontrados.length ? "" : "none";
+
+  let consejo = sef.consejo;
+  if (emocion === "miedo") consejo += "<br><br><b>Hatavat jalom:</b> el Talmud enseña que, tras un sueño que inquieta, puedes contárselo a tres personas de confianza y que ellas te respondan «Jalom tov» (un buen sueño). Los sueños siguen a la boca: interprétalo para bien.";
+  $("r-consejo").innerHTML = consejo;
+
+  const c = CITAS[Math.floor(Math.random() * CITAS.length)];
+  $("r-cita").innerHTML = `«${c[0]}»<small>${c[1]}</small>`;
+
+  dibujarArbol(principal, orden.slice(1));
+  ultimo = { fecha: new Date().toISOString(), texto, sefira: principal };
+  $("guardar").textContent = "📖 Guardar en mi diario";
+  $("guardar").disabled = false;
+  $("resultado").style.display = "block";
+  $("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function dibujarArbol(principal, otras) {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = $("arbol"); svg.innerHTML = "";
+  SENDEROS.forEach(([a, b]) => {
+    const l = document.createElementNS(ns, "line");
+    l.setAttribute("x1", SEFIROT[a].x); l.setAttribute("y1", SEFIROT[a].y);
+    l.setAttribute("x2", SEFIROT[b].x); l.setAttribute("y2", SEFIROT[b].y);
+    l.setAttribute("stroke", "#d9cff2"); l.setAttribute("stroke-width", "2");
+    svg.appendChild(l);
+  });
+  Object.entries(SEFIROT).forEach(([k, s]) => {
+    const activa = k === principal, eco = otras.includes(k);
+    const g = document.createElementNS(ns, "g");
+    const c = document.createElementNS(ns, "circle");
+    c.setAttribute("cx", s.x); c.setAttribute("cy", s.y); c.setAttribute("r", activa ? 19 : 15);
+    c.setAttribute("fill", activa ? "#d8b46a" : eco ? "#f3cbd8" : "#fff");
+    c.setAttribute("stroke", activa ? "#b8913f" : "#b9acdf"); c.setAttribute("stroke-width", "1.5");
+    if (activa) c.setAttribute("style", "filter: drop-shadow(0 0 8px rgba(216,180,106,.9))");
+    const t = document.createElementNS(ns, "text");
+    t.setAttribute("x", s.x); t.setAttribute("y", s.y + 3.5); t.setAttribute("text-anchor", "middle");
+    t.setAttribute("font-size", "9"); t.setAttribute("font-family", "Nunito, sans-serif");
+    t.setAttribute("font-weight", "700"); t.setAttribute("fill", activa ? "#fff" : "#5b4f78");
+    t.textContent = s.nombre.slice(0, 4);
+    const titulo = document.createElementNS(ns, "title"); titulo.textContent = s.nombre;
+    g.append(titulo, c, t); svg.appendChild(g);
+  });
+}
+
+/* ───────────── Diario (solo en este dispositivo) ───────────── */
+const CLAVE = "suenos-cabala-diario";
+function leerDiario() { try { return JSON.parse(localStorage.getItem(CLAVE)) || []; } catch { return []; } }
+function escribirDiario(d) { try { localStorage.setItem(CLAVE, JSON.stringify(d)); return true; } catch { return false; } }
+
+function pintarDiario() {
+  const d = leerDiario(), lista = $("lista");
+  if (!d.length) { lista.innerHTML = '<p class="vacio">Aún no has guardado ningún sueño.</p>'; return; }
+  lista.innerHTML = "";
+  d.forEach((e, i) => {
+    const div = document.createElement("div"); div.className = "entrada";
+    const fecha = new Date(e.fecha).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+    const info = document.createElement("div");
+    info.innerHTML = `<b>${fecha}</b> · <span class="pill">${SEFIROT[e.sefira].nombre}</span>`;
+    const p = document.createElement("p"); p.textContent = e.texto; info.appendChild(p);
+    const borrar = document.createElement("button"); borrar.title = "Borrar"; borrar.setAttribute("aria-label", "Borrar sueño"); borrar.textContent = "✕";
+    borrar.onclick = () => { const n = leerDiario(); n.splice(i, 1); escribirDiario(n); pintarDiario(); };
+    div.append(info, borrar); lista.appendChild(div);
+  });
+}
+
+/* ───────────── Eventos ───────────── */
+$("emociones").addEventListener("click", (ev) => {
+  const b = ev.target.closest("button"); if (!b) return;
+  const ya = b.getAttribute("aria-pressed") === "true";
+  document.querySelectorAll("#emociones button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+  emocion = ya ? null : b.dataset.e;
+  if (!ya) b.setAttribute("aria-pressed", "true");
+});
+$("interpretar").onclick = interpretar;
+$("guardar").onclick = () => {
+  if (!ultimo) return;
+  const d = leerDiario(); d.unshift(ultimo);
+  $("guardar").textContent = escribirDiario(d) ? "✓ Guardado" : "No se pudo guardar";
+  $("guardar").disabled = true; pintarDiario();
+};
+$("otro").onclick = () => {
+  $("sueno").value = ""; $("resultado").style.display = "none"; ultimo = null;
+  window.scrollTo({ top: 0, behavior: "smooth" }); $("sueno").focus();
+};
+
+// Estrellas
+const cielo = $("cielo");
+for (let i = 0; i < 60; i++) {
+  const e = document.createElement("i");
+  e.style.left = Math.random() * 100 + "%"; e.style.top = Math.random() * 55 + "%";
+  e.style.animationDelay = Math.random() * 4 + "s";
+  if (Math.random() > .8) { e.style.width = e.style.height = "3px"; }
+  cielo.appendChild(e);
+}
+pintarDiario();
+</script>
 </body>
 </html>
