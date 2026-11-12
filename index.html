@@ -239,7 +239,7 @@
 
     <footer>
       Interpretación simbólica inspirada en la Cábala y en el Talmud (tratado Berajot).<br>
-      Es una invitación a reflexionar, no una predicción. Tus sueños se guardan solo en este dispositivo.
+      Es una invitación a reflexionar, no una predicción. Tu diario se guarda solo en este dispositivo.<br>Para escribir la interpretación personal, el texto de tu sueño se envía a Claude (Anthropic). La web no lo guarda.
     </footer>
   </div>
 
@@ -443,9 +443,9 @@ const NOMBRES_EMOCION = { paz: "en paz", alegria: "con alegría", miedo: "con mi
 async function pedirInterpretacion(texto, encontrados, sef, local) {
   const estado = $("r-estado");
   ctlClaude?.abort();
-  if (!pedirClaude) { estado.hidden = true; return; }
   ctlClaude = new AbortController();
   const ctl = ctlClaude;
+  if (!pedirClaude) { pedirAlServidor(texto, encontrados, sef, local, ctl); return; }
   estado.hidden = false; estado.className = "estado escribiendo";
   estado.textContent = "Escribiendo una interpretación personal de tu sueño…";
 
@@ -490,6 +490,58 @@ El sueño, tal como lo ha contado:
     } else {
       estado.textContent = "No se pudo terminar la interpretación personal. Aquí tienes la lectura general.";
     }
+  }
+}
+
+/* ───────────── Interpretación escrita desde el servidor de la web ─────────────
+   Si la web está publicada con su servidor (carpeta api/), la interpretación
+   personal llega desde ahí. Si no hay servidor, se queda la lectura general. */
+let servidorDisponible = location.protocol.startsWith("http");
+
+async function pedirAlServidor(texto, encontrados, sef, local, ctl) {
+  const estado = $("r-estado");
+  if (!servidorDisponible) { estado.hidden = true; return; }
+  const clave = Object.keys(SEFIROT).find((k) => SEFIROT[k] === sef);
+  estado.hidden = false; estado.className = "estado escribiendo";
+  estado.textContent = "Escribiendo una interpretación personal de tu sueño…";
+  try {
+    const r = await fetch("api/interpretar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sueno: texto.slice(0, 3000), emocion, sefira: clave, simbolos: encontrados.slice(0, 8).map((s) => s.n) }),
+      signal: ctl.signal,
+    });
+    if (r.status === 404 || r.status === 405) { servidorDisponible = false; estado.hidden = true; return; }
+    if (!r.ok || !r.body) throw new Error("http " + r.status);
+    const lector = r.body.getReader();
+    const deco = new TextDecoder();
+    let acumulado = "";
+    for (;;) {
+      const { value, done } = await lector.read();
+      if (done) break;
+      acumulado += deco.decode(value, { stream: true });
+      if (ctl !== ctlClaude) return;
+      const visible = acumulado.replace("[SIN_INTERPRETACION]", "").trim();
+      if (visible) { mostrarParrafos(visible); estado.textContent = "Escribiendo…"; }
+    }
+    if (ctl !== ctlClaude) return;
+    const fallo = acumulado.includes("[SIN_INTERPRETACION]");
+    const final = acumulado.replace("[SIN_INTERPRETACION]", "").trim();
+    if (final.length > 80) {
+      mostrarParrafos(final);
+      if (ultimo) ultimo.interpretacion = final;
+      estado.hidden = true;
+    } else {
+      mostrarParrafos(local);
+      estado.className = "estado";
+      estado.textContent = fallo ? "No se pudo escribir la interpretación personal. Aquí tienes la lectura general." : "";
+      estado.hidden = !fallo;
+    }
+  } catch (e) {
+    if (ctl !== ctlClaude || e?.name === "AbortError") return;
+    mostrarParrafos(local);
+    estado.className = "estado";
+    estado.textContent = "No se pudo conectar para escribir la interpretación personal. Aquí tienes la lectura general.";
   }
 }
 
