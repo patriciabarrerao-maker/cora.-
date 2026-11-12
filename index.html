@@ -106,6 +106,12 @@
     .cita small { display: block; font-family: "Nunito", sans-serif; font-style: normal; font-size: .8rem; margin-top: 4px; }
 
     .acciones { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+    .gancho {
+      display: block; width: 100%; margin-top: 18px; padding: 14px 18px; text-align: left; cursor: pointer;
+      font: inherit; line-height: 1.55; color: var(--texto);
+      background: var(--oro-suave); border: 1px solid #ead29c; border-radius: 16px; transition: transform .2s;
+    }
+    .gancho:hover, .gancho:focus-visible { transform: translateY(-1px); outline: 2px solid var(--oro); outline-offset: 2px; }
     .interpretacion { display: grid; gap: 14px; line-height: 1.75; font-size: 1.04rem; }
     .interpretacion p { min-width: 0; }
     .estado { color: var(--texto-suave); font-style: italic; margin-top: 10px; }
@@ -198,6 +204,7 @@
       <h2>Tu interpretación</h2>
       <div class="interpretacion" id="r-interpretacion"></div>
       <p class="estado" id="r-estado" hidden></p>
+      <button type="button" class="gancho" id="ir-consulta">Hay detalles de tu sueño que una lectura automática no puede ver. <b>¿Quieres que lo lea yo personalmente?</b> ↓</button>
 
       <h2>Qué puedes hacer hoy</h2>
       <div class="consejo" id="r-consejo"></div>
@@ -219,13 +226,13 @@
     </section>
 
     <section class="tarjeta consulta" id="consulta" hidden>
-      <div class="etiqueta" style="color:var(--oro-suave)">¿Quieres ir más allá?</div>
-      <h2>Consulta personalizada</h2>
-      <p class="intro">Esta lectura es automática y general. En una consulta personal leo tu sueño entero, con calma, teniendo en cuenta tu momento de vida, y te explico qué significa para ti.</p>
+      <div class="etiqueta" style="color:var(--oro-suave)">Consulta personalizada</div>
+      <h2>Cuéntame tu sueño y lo leo contigo</h2>
+      <p class="intro">La lectura de arriba es automática: solo reconoce algunas palabras. Yo leo tu sueño entero, con calma, te pregunto cómo estás viviendo este momento y te explico qué significa para ti.</p>
       <ul class="incluye">
-        <li>Interpretación completa de tu sueño, hecha a mano</li>
-        <li>Respuesta por audio o por escrito, como prefieras</li>
-        <li>Consejos prácticos para tu día a día</li>
+        <li>Te atiendo yo personalmente</li>
+        <li>Te respondo por audio o por escrito, como prefieras</li>
+        <li>Puedes preguntarme tus dudas sobre la lectura</li>
       </ul>
       <div class="precio" id="c-precio"></div>
       <div class="contactos" id="c-botones"></div>
@@ -680,6 +687,7 @@ $("emociones").addEventListener("click", (ev) => {
   if (!ya) b.setAttribute("aria-pressed", "true");
 });
 $("interpretar").onclick = interpretar;
+$("ir-consulta").onclick = () => $("consulta").scrollIntoView({ behavior: "smooth", block: "start" });
 $("guardar").onclick = () => {
   if (!ultimo) return;
   const d = leerDiario(); d.unshift(ultimo);
